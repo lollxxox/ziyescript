@@ -1,19 +1,15 @@
-
-name: qqread
+name: QQ阅读APP
 
 on:
   workflow_dispatch:
   schedule:
-     - cron: '0 0-15 * * *'
+     - cron: "*/20 23,0-14 * * *"
   watch:
     types: started
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.event.repository.owner.id == github.event.sender.id
-    env:
-        QQreadurlVal : ${{ secrets.QQreadurlVal  }}
-        
+    if: github.event.repository.owner.id == github.event.sender.id   
     steps:
       - name: Checkout
         run: |
@@ -28,7 +24,6 @@ jobs:
           cd ~/JavaScript
           npm install
       - name: '运行 【QQ阅读】'
-        if: env.XL_URL
         run: |
           cd ~/JavaScript
           node Task/QQread.js
@@ -41,3 +36,4 @@ jobs:
           BARK_SOUND: ${{ secrets.BARK_SOUND }}
           DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
           DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
+          QQ_QQreadURL: ${{ secrets.QQ_QQreadURL }}
