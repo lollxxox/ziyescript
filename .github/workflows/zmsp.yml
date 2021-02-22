@@ -43,4 +43,5 @@ jobs:
           node zhima.js
         env:
           ZM_zhimabody: ${{ secrets.ZM_zhimabody }}
-          BARK_PUSH: ${{ secrets.BARK_PUSH }}
+          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          TG_USER_ID: ${{ secrets.TG_USER_ID }}
