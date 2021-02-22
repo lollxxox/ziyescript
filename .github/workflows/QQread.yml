@@ -25,5 +25,5 @@ jobs:
           node Task/QQread.js
         env:
           QQ_QQreadURL: ${{ secrets.QQ_QQreadURL }}
-          PUSH_PLUS_TOKEN: ${{ secrets.PUSH_PLUS_TOKEN }}
-          PUSH_PLUS_USER: ${{ secrets.PUSH_PLUS_USER }}
+          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          TG_USER_ID: ${{ secrets.TG_USER_ID }}
