@@ -3,41 +3,42 @@ name: 芝嫲视频
 on:
   workflow_dispatch:
   schedule:
-    - cron: '*/30 * * * *'
+     - cron: '*/30 * * * *'
   watch:
     types: started
-
 jobs:
   build:
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
+    env:
+        ZM_zhimabody: ${{ secrets.ZM_zhimabody }}
+        ZM_zhimatxbody: ${{ secrets.ZM_zhimatxbody }}		
+        
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          repository: yifan-BEN10/ZHIYONG
-          ref: main
-      - name: Use Node.js ${{ matrix.node-version }}
+        run: |
+          git clone https://github.com/yifan-BEN10/ZHIYONG.git ~/ZHIYONG
+      - name: Use Node.js 12.x
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
-      - name: Cache node_modules
-        uses: actions/cache@v2 # 使用 GitHub 官方的缓存 Action。
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('package-lock.json') }} # 使用 package-lock.json 的 Hash 作为缓存的 key。也可以使用 package.json 代替
+          node-version: 12.x
       - name: npm install
+        if: env.ZM_zhimabody
         run: |
+          cd ~/ZHIYONG
+          git checkout ZIYE
           npm install
-      - name: '运行 【zhima】'
+      - name: '运行 【芝嫲视频】'
+        if: env.ZM_zhimabody
         run: |
-          cd ~/ZHIYONG/Task
-          #填写js脚本名
-          node zhima.js
+          cd ~/ZHIYONG
+          node Task/zhima.js
         env:
-          ZM_zhimabody: ${{ secrets.ZM_zhimabody }}
-          ZM_zhimatxbody: ${{ secrets.ZM_zhimatxbody }}
+          
+          PUSH_KEY: ${{ secrets.PUSH_KEY }}
+          BARK_PUSH: ${{ secrets.BARK_PUSH }}
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
           TG_USER_ID: ${{ secrets.TG_USER_ID }}
+          BARK_SOUND: ${{ secrets.BARK_SOUND }}
+          DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
+          DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
