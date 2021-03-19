@@ -15,7 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          repository: LiuYuanwork/Node-Script
+          repository: yifan-BEN10/ZHIYONG
           ref: main
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
@@ -33,7 +33,7 @@ jobs:
           npm install
       - name: '运行 【zhima】'
         run: |
-          cd Task
+          cd ~/ZHIYONG/Task
           #填写js脚本名
           node zhima.js
         env:
